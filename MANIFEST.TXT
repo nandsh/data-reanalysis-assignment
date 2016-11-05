@@ -1,0 +1,6 @@
+1.DataDescription.docx (application/vnd.openxmlformats-officedocument.wordprocessingml.document) 22105 bytes.
+2.GuidelinesForEstimationMethodsOfTheTables.docx (application/vnd.openxmlformats-officedocument.wordprocessingml.document) 19666 bytes.
+3.104-CountrySample.tab (text/tab-separated-values) 23199 bytes.
+4.101-CountrySample.tab (text/tab-separated-values) 22502 bytes.
+Economics_2015-39.pdf (application/pdf) 322267 bytes.
+ReadMe.docx (application/vnd.openxmlformats-officedocument.wordprocessingml.document) 16475 bytes.
