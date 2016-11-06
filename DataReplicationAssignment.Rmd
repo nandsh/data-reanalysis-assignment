@@ -1,0 +1,171 @@
+---
+title: "Data_ReAnalysis_Assignment"
+theme: "simplex"
+author: "Nandini Sharma"
+date: "November 5, 2016"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Overview
+This assignment replicates some of the descriptive and inferential statistical analysis done by the authors of the paper: 
+
+_Determinants of Immigrant Apprehensions: The Case of U.S. Immigration_
+_Bilol Buzurukov and Byeong Wan Lee_
+
+#Abstract 
+THe authors explore the cross country variations of immigrant apprehensions in the United States. In particular they study and analyse the effects of their home country's situation with respect to  education, income, social ills like corruption, theft, homicide, etc., on their apprehension ratio in the United States. For e.g. their data suggests:
+
+_Every one-point increase in Mexico’s corruption level produces 18 additional apprehensions per 100,000 Mexican immigrants_ 
+
+They conduct descriptive statistical analysis and simple linear regression analysis with a broad range explanatory variables and one response variable i.e. log(APR), where APR refers to Apprehension Ratio of Immigrants. APR represents the annual number of apprehensions per 100,000 aliens. The authors explain in the paper that:
+
+_The ratio is multiplied by 100,000 to keep the dependent variable of the regression model in its log form to reduce the skewness of the distribution while mitigating the potential problem of heteroscedasticity_
+
+The data set that authors have shared already has the APR calculated for various countries, along with their respective quantified values for explanatory variables like corruption, education etc. The authors quantify corruption index by:
+
+_‘Corruption Control’ data are selected (e.g., Kaufmann et al., 2014) for their broader country coverage and data completeness with no missing values after the year 2000.5 The index is scaled from –2.5 to 2.5 with –2.5 representing the highest level of corruption (weakest control) and 2.5, the lowest level of corruption (strongest control). The data are multiplied by –1 for a more intuitive interpretation of the scale such that the higher the value, the higher the level of corruption._
+
+You can refer to the paper to know more about the authors quantifies indices for other explanatory variables. 
+
+Another important explanatory variable to be considered is:
+
+_Regional and Income Group Dummies: Immigrants’ attitudes toward compliance with local laws and regulations are assumed to reflect varying characteristics that exist across regions and income groups that their country of origin belongs to. In this regard, the full country sample is divided into five regions and four income groups, and two sets of dummy variables are used to verify the existence of cross-county variations in alien apprehensions attributable to regional and income group differences. Regional dummies correspond to Americas, Africa, Asia, Europe, and the Middle East, and income group dummies correspond to high-, low-, lower-middle-, and upper-middle-income countries._
+
+#ReAnalysis
+
+As mentioned earlier, the data set that authors have shared already has the APR calculated for various countries, along with their respective quantified values for explanatory variables like corruption, education etc. 
+
+In this assignment I have replicated the descriptive statistical analysis i.e. the mean, standard deviation, and range calculation for the explanatory variables with respect to all the countries in question. 
+
+I have also replicated two of the simple linear regression models established by the authors. One of them looks into the effects of the explanatory variables on the log(APR) without considering the region/income of that country into consideration. The second one of them looks at the effect of the explanatory variables with regional dummies in the model equation.  
+
+
+#Descriptive statistics {.tabset .tabset-fade .tabset-pills}
+##Reading Data
+```{r}
+# Reading the official data with outliers from github 
+Offdata<-read.table("https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/3.104-CountrySample.tab", header=TRUE)
+# Brief up of what the data looks like
+head(Offdata)
+attach(Offdata)
+```
+##My Analyses 
+```{r}
+ObservationVar<-colnames(Offdata) # Creating a vector of all the explanatory variables e.g. corruption
+ObservationVar<-ObservationVar[-1] #Removing the first entry which corresponds to country
+#Initializing variables for holding mean, standard deviation , range and count of observations
+MeanObs<-NULL
+SDObs<-NULL
+MinObs<-NULL
+MaxObs<-NULL
+CountObs<-NULL
+#Using the variables in the vector observationsVar to calculate their respective means, sd,and ranges. 
+for (i in 1:length(ObservationVar)) {
+  #Parsing the string as a variable name in the data set and calculating the corresponding statistics i.e.   passing "Corruption" from vectory ObservationsVar as a variable Offdata$Corruption to function mean()
+  
+  MeanObs<-c(MeanObs,round(mean(eval(parse(text = ObservationVar[i]))),2))
+  SDObs<-c(SDObs,round(sd(eval(parse(text = ObservationVar[i]))),2))
+  MinObs<-c(MinObs,round(min(eval(parse(text = ObservationVar[i]))),2))
+  MaxObs<-c(MaxObs,round(max(eval(parse(text = ObservationVar[i]))),2))
+  CountObs<-c(CountObs,length(eval(parse(text = ObservationVar[i]))))
+}
+DS<-data.frame(variable=ObservationVar, Observations=CountObs, Mean=MeanObs, SD=SDObs, Minimum=MinObs, Maximum=MaxObs)
+DS
+```
+##Author's Analysis
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/DescriptiveStatisticsTable.png"/>
+
+#Inferential Statistics 
+##Multiple Regression I
+###Without the Regional/Income Group Dummies {.tabset .tabset-fade .tabset-pills}
+####Data Read
+```{r}
+#Reading offical Data from github Without Outliers (Excluding Jordan, Myanmar, Mexico)
+OffdataNoOutliers<-read.table("https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/4.101-CountrySample.tab", header=TRUE)
+#Brief up of what the data looks like
+head(OffdataNoOutliers)
+```
+
+####My-Model1_1 
+```{r}
+#Country Sample WITHOUT outliers [1-1]
+#Regression model with all explanatory variables  
+model1_1<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=OffdataNoOutliers)
+summary(model1_1)
+```
+####My-Model1_2
+```{r}
+#Country Sample WITH outliers : [1-2]
+#Regression model with all explanatory variables  
+model1_2<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=Offdata)
+summary(model1_2)
+```
+####My-Model1_3
+```{r}
+#Model1-1 regressed again without Education : [1-3]
+model1_3<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=Offdata)
+summary(model1_3)
+```
+####My-Model1_4
+```{r}
+#Model1-2 regressed again without Education : [1-4]
+model1_4<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=Offdata)
+summary(model1_4)
+```
+####My-Model1_5
+```{r}
+#Model1-1 regressed again without Income : [1-5]
+model1_5<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=Offdata)
+summary(model1_5)
+```
+####My-Model1_6
+```{r}
+#Model1-2 regressed again without Income : [1-6]
+model1_6<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment,data=Offdata)
+summary(model1_6)
+```
+####Author's Models
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_1.png"/>
+
+##Multiple Regression II
+###With the Regional Group Dummies {.tabset .tabset-fade .tabset-pills}
+####My-Model2_1
+```{r}
+#Americas without log(Distance)  [2-1] 
+model2_1<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+Americas,data=OffdataNoOutliers)
+summary(model2_1)
+```
+####My-Model2_2
+```{r}
+#Europe  [2-2] 
+model2_2<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+Europe,data=OffdataNoOutliers)
+summary(model2_2)
+```
+####My-Model2_3
+```{r}
+#Africa [2-3]
+model2_3<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+Africa,data=OffdataNoOutliers)
+summary(model2_3)
+```
+####My-Model2_4
+```{r}
+#Asia [2-4]
+model2_4<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+Asia,data=OffdataNoOutliers)
+summary(model2_4)
+```
+####My-Model2_5
+```{r}
+#MiddleEast  [2-5]
+model2_5<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+MiddleEast,data=OffdataNoOutliers)
+summary(model2_5)
+```
+####Author's Models
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_2.png"/>
