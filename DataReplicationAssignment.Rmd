@@ -45,7 +45,7 @@ As mentioned earlier, the data set that authors have shared already has the APR 
 
 In this assignment I have replicated the descriptive statistical analysis i.e. the mean, standard deviation, and range calculation for the explanatory variables with respect to all the countries in question. 
 
-I have also replicated two of the simple linear regression models established by the authors. One of them looks into the effects of the explanatory variables on the log(APR) without considering the region/income of that country into consideration. The second one of them looks at the effect of the explanatory variables with regional dummies in the model equation.  
+I have also replicated all of the simple linear regression models established by the authors. One of them looks into the effects of the explanatory variables on the log(APR) without considering the region/income of that country into consideration. The second one looks at the effect of the explanatory variables with regional dummies in the model equation. The third one loks at the effects of the explanatory variables with the income group dummies in the model equation.
 
 
 #Descriptive statistics {.tabset .tabset-fade .tabset-pills}
@@ -169,3 +169,32 @@ summary(model2_5)
 ```
 ####Author's Models
 <img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_2.png"/>
+
+##Multiple Regression III
+###With the Income Group Dummies {.tabset .tabset-fade .tabset-pills}
+####My-Model3_1
+```{r}
+#Americas without log(Distance)  [3-1] 
+model3_1<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+LowIncome ,data=OffdataNoOutliers)
+summary(model3_1)
+```
+####My-Model3_2
+```{r}
+#LowerMiddleIncome  [3-2] 
+model3_2<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+LowerMiddleIncome,data=OffdataNoOutliers)
+summary(model3_2)
+```
+####My-Model2_3
+```{r}
+#UpperMiddleIncome [3-3]
+model3_3<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+UpperMiddleIncome,data=OffdataNoOutliers)
+summary(model3_3)
+```
+####My-Model3_4
+```{r}
+#HighIncome [3-4]
+model3_4<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+HighIncome,data=OffdataNoOutliers)
+summary(model3_4)
+```
+####Author's Models
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_3.png"/>
