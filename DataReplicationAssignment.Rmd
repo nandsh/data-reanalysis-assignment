@@ -133,7 +133,7 @@ model1_6<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+Ed
 summary(model1_6)
 ```
 ####Author's Models
-<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_1.png"/>
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/img/MultipleRegressionResults_1.png"/>
 
 ##Multiple Regression II
 ###With the Regional Group Dummies {.tabset .tabset-fade .tabset-pills}
@@ -168,7 +168,7 @@ model2_5<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+lo
 summary(model2_5)
 ```
 ####Author's Models
-<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_2.png"/>
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/img/MultipleRegressionResults_2.png"/>
 
 ##Multiple Regression III
 ###With the Income Group Dummies {.tabset .tabset-fade .tabset-pills}
@@ -197,4 +197,4 @@ model3_4<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+lo
 summary(model3_4)
 ```
 ####Author's Models
-<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/MultipleRegressionResults_3.png"/>
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/img/MultipleRegressionResults_3.png"/>
