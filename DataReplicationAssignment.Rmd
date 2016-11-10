@@ -174,7 +174,7 @@ summary(model2_5)
 ###With the Income Group Dummies {.tabset .tabset-fade .tabset-pills}
 ####My-Model3_1
 ```{r}
-#Americas without log(Distance)  [3-1] 
+#LowIncome  [3-1] 
 model3_1<-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+LowIncome ,data=OffdataNoOutliers)
 summary(model3_1)
 ```
@@ -198,3 +198,8 @@ summary(model3_4)
 ```
 ####Author's Models
 <img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/img/MultipleRegressionResults_3.png"/>
+
+#Conclusion {.tabset .tabset-fade .tabset-pills}
+As highlighted, I have been able to replicate the data analysis of the authors. It was interesting to have reproduced the results that the authors found in their analysis especially the one where the models indicate Alcohol being negatively related to US apprehensions of foreign born immigrants. 
+Also the primary finding that social ills come out as the prominent factor while explaining the variations in the cross country apprehensions, has been interesting to evaluate. 
+I believe it is an interesting study overall, and given the knowledge that we have now gained through out the course of this class, I can already think of ways that this model can be improved and made better by looking into interaction effects between so many explanatory variableand thus taking the help of model selection algorithms like forward selection/backward selection/nested comparison etc. to build an even more efficient model that explains for a greater variance. 

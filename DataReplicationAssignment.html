@@ -247,7 +247,7 @@ div.tocify {
 <h1>ReAnalysis</h1>
 <p>As mentioned earlier, the data set that authors have shared already has the APR calculated for various countries, along with their respective quantified values for explanatory variables like corruption, education etc.</p>
 <p>In this assignment I have replicated the descriptive statistical analysis i.e. the mean, standard deviation, and range calculation for the explanatory variables with respect to all the countries in question.</p>
-<p>I have also replicated two of the simple linear regression models established by the authors. One of them looks into the effects of the explanatory variables on the log(APR) without considering the region/income of that country into consideration. The second one of them looks at the effect of the explanatory variables with regional dummies in the model equation.</p>
+<p>I have also replicated all of the simple linear regression models established by the authors. One of them looks into the effects of the explanatory variables on the log(APR) without considering the region/income of that country into consideration. The second one looks at the effect of the explanatory variables with regional dummies in the model equation. The third one loks at the effects of the explanatory variables with the income group dummies in the model equation.</p>
 </div>
 <div id="descriptive-statistics" class="section level1 tabset tabset-fade tabset-pills">
 <h1>Descriptive statistics</h1>
@@ -833,7 +833,7 @@ summary(model2_5)</code></pre>
 <h3>With the Income Group Dummies</h3>
 <div id="my-model3_1" class="section level4">
 <h4>My-Model3_1</h4>
-<pre class="r"><code>#Americas without log(Distance)  [3-1] 
+<pre class="r"><code>#LowIncome  [3-1] 
 model3_1&lt;-lm(formula=log(APR)~Corruption+Theft+Homicide+Alcohol+log(Distance)+log(Income)+Education+Traffic+Prostitution+log(Tourism)+Unemployment+Investment+LowIncome ,data=OffdataNoOutliers)
 summary(model3_1)</code></pre>
 <pre><code>## 
@@ -991,6 +991,10 @@ summary(model3_4)</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div id="conclusion" class="section level1 tabset tabset-fade tabset-pills">
+<h1>Conclusion</h1>
+<p>As highlighted, I have been able to replicate the data analysis of the authors. It was interesting to have reproduced the results that the authors found in their analysis especially the one where the models indicate Alcohol being negatively related to US apprehensions of foreign born immigrants. Also the primary finding that social ills come out as the prominent factor while explaining the variations in the cross country apprehensions, has been interesting to evaluate. I believe it is an interesting study overall, and given the knowledge that we have now gained through out the course of this class, I can already think of ways that this model can be improved and made better by looking into interaction effects between so many explanatory variableand thus taking the help of model selection algorithms like forward selection/backward selection/nested comparison etc. to build an even more efficient model that explains for a greater variance.</p>
 </div>
 
 
