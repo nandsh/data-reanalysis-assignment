@@ -81,7 +81,7 @@ DS<-data.frame(variable=ObservationVar, Observations=CountObs, Mean=MeanObs, SD=
 DS
 ```
 ##Author's Analysis
-<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/DescriptiveStatisticsTable.png"/>
+<img src="https://raw.githubusercontent.com/nandsh/data-reanalysis-assignment/master/img/DescriptiveStatisticsTable.png"/>
 
 #Inferential Statistics 
 ##Multiple Regression I
